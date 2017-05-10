@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class deleteScrap : MonoBehaviour {
+public class CrushScrap : MonoBehaviour {
 	
 	public string[] ValidInputs;
+	public GameObject Output;
+	public int ratio = 5;
 
 	void OnTriggerEnter(Collider other) {
-		Debug.Log ("Testing...");
 		if (isValidInput (other.gameObject)) {
-			Debug.Log ("Valid. destroy");
-			Destroy (other.gameObject);
+			//it's scrap. crush it
+			//Destroy (other.gameObject);
+
 		} else {
-			Debug.Log("invalid");
+			// don't process
 		}
 	}
 
