@@ -5,14 +5,17 @@ public class CrushScrap : MonoBehaviour {
 	
 	public string[] ValidInputs;
 	public GameObject typeOutputObject;
-	public float proccessSpeed = 5;
+	public float proccessSpeed = 0.1f;
 
 	public Transform inTran;
 	public Transform outTran;
 	public Transform dropTran;
+	private Vector3 inStart;
 
 	private bool crushing = false;
+	private float crushAmount = 0;
 	private bool producing = false;
+	private float produceAmount = 0;
 	private Transform input;
 	private Rigidbody output;
 
@@ -28,7 +31,10 @@ public class CrushScrap : MonoBehaviour {
 			//pull input into machine
 			crushing = true;
 			producing = true;
+			crushAmount = 0;
+			produceAmount = 0;
 			input = other.transform;
+			inStart = input.position;
 			other.attachedRigidbody.useGravity = false;
 			other.enabled = false;
 
@@ -55,9 +61,10 @@ public class CrushScrap : MonoBehaviour {
 				}
 			}
 
-			output.transform.position = Vector3.Lerp (output.transform.position, dropTran.position, Time.deltaTime * proccessSpeed);
+			produceAmount += proccessSpeed;
+			output.transform.position = Vector3.Lerp (outTran.position, dropTran.position, produceAmount);
 
-			if (Vector3.Distance (output.transform.position, dropTran.position) < 0.25f) {
+			if (produceAmount >= 1f) {
 				//drop it
 				output.useGravity = true;
 				producing = false;
@@ -70,9 +77,10 @@ public class CrushScrap : MonoBehaviour {
 		}
 
 		if(crushing) {
-			input.transform.position = Vector3.Lerp(input.transform.position, inTran.position, Time.deltaTime * proccessSpeed);
+			crushAmount += proccessSpeed;
+			input.transform.position = Vector3.Lerp(inStart, inTran.position, crushAmount);
 
-			if(Vector3.Distance(input.transform.position, inTran.position) < 1.0f) {
+			if(crushAmount >= 1.0f) {
 				//it's gone
 				Destroy (input.gameObject);
 				crushing = false;

@@ -506,7 +506,7 @@ MonoBehaviour:
   ValidInputs:
   - Scrap
   typeOutputObject: {fileID: 186698, guid: 5e95d51c641cc884fa4d0b0f6b88083d, type: 2}
-  proccessSpeed: 2
+  proccessSpeed: .00999999978
   inTran: {fileID: 452015796}
   outTran: {fileID: 1112517107}
   dropTran: {fileID: 716012743}
